@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db'); // PostgreSQL pool
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -52,3 +52,4 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
