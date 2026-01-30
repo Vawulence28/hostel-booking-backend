@@ -22,12 +22,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const authRoutes = require('./routes/auth');
 const hostelRoutes = require('./routes/hostels');
 const bookingRoutes = require('./routes/bookings');
-const paymentRoutes = require('./routes/payments');
+const paymentRoutes = require('./routes/payment');
 
 app.use('/auth', authRoutes);
 app.use('/hostels', hostelRoutes);
 app.use('/bookings', bookingRoutes);
-app.use('/payments', paymentRoutes);
+app.use('/payment', paymentRoutes);
 
 // Root test
 app.get('/', (req, res) => res.send('Hostel Booking Backend Running'));
@@ -42,3 +42,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
