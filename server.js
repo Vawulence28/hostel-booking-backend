@@ -14,10 +14,9 @@ app.get("/test", (req, res) => {
 });
 
 const authRoutes = require("./routes/auth");
-app.use("/api/auth", authRoutes);
-
-// 🔥 HOSTELS ROUTE
 const hostelsRoutes = require("./routes/hostels");
+
+app.use("/api/auth", authRoutes);
 app.use("/api/hostels", hostelsRoutes);
 
 // root
@@ -30,4 +29,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
 
