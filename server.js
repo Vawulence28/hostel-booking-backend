@@ -1,46 +1,29 @@
-// backend/server.js
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
-
-dotenv.config();
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// Middleware
+// middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Serve uploaded images statically
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Routes
-const authRoutes = require('./routes/auth');
-const hostelsRoutes = require('./routes/hostels');
-const bookingRoutes = require('./routes/bookings');
-const paymentRoutes = require('./routes/payment');
-
-app.use('/auth', authRoutes);
-app.use('/hostels', hostelsRoutes);
-app.use('/bookings', bookingRoutes);
-app.use('/payment', paymentRoutes);
-
-// Root test
-app.get('/', (req, res) => res.send('Hostel Booking Backend Running'));
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error('SERVER ERROR:', err);
-  res.status(500).json({ error: 'Server error occurred' });
+// 🔥 TEST ROUTE (CRITICAL)
+app.get("/test", (req, res) => {
+  res.json({ message: "Server routes are working" });
 });
 
-// Start server
+// 🔥 HOSTELS ROUTE
+const hostelsRoutes = require("./routes/hostels");
+app.use("/api/hostels", hostelsRoutes);
+
+// root
+app.get("/", (req, res) => {
+  res.send("Hostel Booking Backend Running");
+});
+
+// start server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-
-
