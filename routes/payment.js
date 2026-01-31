@@ -115,16 +115,6 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   res.json({ received: true });
 });
 
-// VIEW PAYMENTS
-router.get(
-  "/",
-  auth,
-  role("financial_admin", "super_admin"),
-  async (req, res) => {
-    const payments = await pool.query("SELECT * FROM payments");
-    res.json(payments.rows);
-  }
-);
-
 module.exports = router;
+
 
