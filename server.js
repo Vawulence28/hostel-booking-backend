@@ -20,12 +20,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 const authRoutes = require('./routes/auth');
-const hostelRoutes = require('./routes/hostels');
+const hostelsRoutes = require('./routes/hostels');
 const bookingRoutes = require('./routes/bookings');
 const paymentRoutes = require('./routes/payment');
 
 app.use('/auth', authRoutes);
-app.use('/hostels', hostelRoutes);
+app.use('/hostels', hostelsRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/payment', paymentRoutes);
 
@@ -42,4 +42,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
 
