@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const pool = require("../db");
 
@@ -91,3 +91,4 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+
