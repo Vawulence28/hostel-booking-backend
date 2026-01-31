@@ -1,17 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../db"); // your PostgreSQL pool
+const pool = require("../db");
 
-// GET all available hostels
+// TEST INSIDE ROUTE FILE
+router.get("/test", (req, res) => {
+  res.json({ message: "Hostels route works" });
+});
+
+// GET ALL HOSTELS
 router.get("/", async (req, res) => {
   try {
-    const result = await pool.query(
-      "SELECT * FROM hostels WHERE status = 'available' ORDER BY created_at DESC"
-    );
+    const result = await pool.query("SELECT * FROM hostels");
     res.json(result.rows);
   } catch (err) {
-    console.error("❌ FETCH HOSTELS ERROR:", err);
-    res.status(500).json({ error: "Server error fetching hostels", details: err.message });
+    console.error("❌ HOSTELS QUERY ERROR:", err);
+    res.status(500).json({ error: "Server error fetching hostels" });
   }
 });
 
