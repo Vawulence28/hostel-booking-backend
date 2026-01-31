@@ -13,6 +13,9 @@ app.get("/test", (req, res) => {
   res.json({ message: "Server routes are working" });
 });
 
+const authRoutes = require("./routes/auth");
+app.use("/api/auth", authRoutes);
+
 // 🔥 HOSTELS ROUTE
 const hostelsRoutes = require("./routes/hostels");
 app.use("/api/hostels", hostelsRoutes);
@@ -27,3 +30,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
