@@ -1,6 +1,9 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = (req, res, next) => {
+/**
+ * Verify JWT Token
+ */
+const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -11,13 +14,32 @@ module.exports = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // { id, role }
+    req.user = decoded; // { id, email, role }
     next();
   } catch (err) {
-    return res.status(401).json({ error: "Invalid token" });
+    return res.status(401).json({ error: "Invalid or expired token" });
   }
 };
 
+/**
+ * Role-based Admin Access
+ * Usage: isAdmin("super_admin"), isAdmin("content_admin"), etc.
+ */
+const isAdmin = (...allowedRoles) => {
+  return (req, res, next) => {
+    if (!req.user || !req.user.role) {
+      return res.status(403).json({ error: "Access denied" });
+    }
 
-module.exports = { verifyToken, isAdmin };
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({ error: "Insufficient permissions" });
+    }
 
+    next();
+  };
+};
+
+module.exports = {
+  verifyToken,
+  isAdmin
+};
